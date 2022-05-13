@@ -13,9 +13,7 @@ class Persona{
 
 class Empleado extends Persona{
     constructor (nombre, apellido, edad, tipo){
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.edad = edad;
+        super(nombre,apellido,edad)
         this.tipo = tipo;
     }
 
@@ -30,9 +28,9 @@ class Nomina{
        this.propiedades = propiedades
    }
 
-    calcularPago(tipo){
+    calcularPago(tipo,dias){
         let pago;
-        let dias;
+        
         if (tipo=='S') {
             pago = 350 * dias * 0.9
         }
@@ -43,7 +41,18 @@ class Nomina{
     } 
 
     calcularNomina(){
-
+        for (let i = 0; i < this.propiedades.length; i++) {
+            let dias =Math.floor(Math.random() * (16 - 5) + 5);
+            console.log(new Empleado(this.propiedades[i][0],
+                this.propiedades[i][1],this.propiedades[i][2],
+                this.propiedades[i][3]).getDetalles() + ' pertenece a '
+                +((this.propiedades[i][3])=='C' ? 'Empleado de confianza':'Sindicato')
+                + ' con un sueldo de $'
+                + this.calcularPago(this.propiedades[i][3],dias)      
+                + ' por ' + dias + ' días trabajados')
+        }
     }
 
 }
+
+console.log(new Nomina().calcularNomina())
